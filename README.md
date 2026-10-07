@@ -1,121 +1,216 @@
 # Weather Data Pipeline
 
-A small, reproducible data pipeline that fetches hourly weather forecasts from
-[Open-Meteo](https://open-meteo.com/), stores the raw data in DuckDB, and builds
-a city-level summary with dbt. The pipeline can be run locally with `uv` or
-scheduled daily with Apache Airflow and Docker.
+[![Python](https://img.shields.io/badge/Python-3.14%2B-blue?logo=python)](https://www.python.org/)
+[![dbt](https://img.shields.io/badge/dbt-DuckDB-orange?logo=dbt)](https://www.getdbt.com/)
+[![DuckDB](https://img.shields.io/badge/DuckDB-1.5%2B-yellow?logo=duckdb)](https://duckdb.org/)
+[![uv](https://img.shields.io/badge/Package%20Manager-uv-purple)](https://docs.astral.sh/uv/)
+
+An end-to-end, reproducible Data Engineering pipeline that extracts hourly weather forecast data from the [Open-Meteo REST API](https://open-meteo.com/), stores the raw data into an embedded [DuckDB](https://duckdb.org/) analytical database, and transforms it into city-level daily summary aggregations using [dbt](https://www.getdbt.com/).
+
+---
+
+## Table of Contents
+
+- [Architecture](#architecture)
+- [Project Features](#project-features)
+- [Target Locations & Metrics](#target-locations--metrics)
+- [Project Structure](#project-structure)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+  - [1. Installation](#1-installation)
+  - [2. Ingest Weather Data](#2-ingest-weather-data)
+  - [3. Transform Data with dbt](#3-transform-data-with-dbt)
+  - [4. Validate Data Quality](#4-validate-data-quality)
+- [Configuration](#configuration)
+- [Data Models & Schema](#data-models--schema)
+- [Testing & Quality Assurance](#testing--quality-assurance)
+
+---
 
 ## Architecture
 
 ```text
-Open-Meteo API
-   |
-   v
-ingestion.py  --->  raw.weather_daily (DuckDB)
-         |
-         v
-      dbt model: day_summary
-         |
-         v
-     dbt tests and validation
+               +-----------------------+
+               |  Open-Meteo REST API  |
+               +-----------+-----------+
+                           |
+                           | HTTP (cached & retry)
+                           v
+               +-----------------------+
+               |     ingestion.py      |
+               +-----------+-----------+
+                           |
+                           | DuckDB SQL
+                           v
++------------------------------------------------------+
+|                       DuckDB                         |
+|                                                      |
+|  [raw.weather_daily] ----> [analytics.day_summary]   |
+|         (Raw Data)                (dbt Model)        |
++------------------------------------------------------+
+                           |
+                           v
+               +-----------------------+
+               |  dbt Data Validation  |
+               | (unique, not_null...) |
+               +-----------------------+
 ```
 
-The ingestion script retrieves one forecast day for Casablanca, New York,
-Paris, Tokyo, and Brasilia. It writes temperature, relative humidity,
-precipitation, wind speed, and weather code to `raw.weather_daily`.
+1. **Ingestion Layer (`ingestion.py`)**: Fetches hourly weather metrics using `openmeteo-requests` with response caching (`requests-cache`) and automated exponential backoff (`retry-requests`). Writes raw records into the `raw.weather_daily` DuckDB table.
+2. **Transformation Layer (`dbt`)**: Aggregates hourly weather metrics into city-wide daily statistics, outputting to the `analytics.day_summary` DuckDB table.
+3. **Data Quality Layer (`dbt test`)**: Enforces schema validation, uniqueness constraints, and non-null guarantees across key attributes.
 
-## Requirements
+---
 
-- Python 3.14 or newer
-- [`uv`](https://docs.astral.sh/uv/)
-- Docker and Docker Compose for the Airflow deployment
+## Project Features
 
-## Local development
+- **Automated API Ingestion**: Resilient API fetching with automatic retries (5 retries with backoff) and local request caching (1-hour TTL) to prevent rate limits.
+- **Embedded OLAP Database**: Utilizes DuckDB for fast, serverless columnar data processing and zero-config analytics storage.
+- **dbt Modeling**: Structured SQL transformation adhering to analytics engineering best practices (source declarations, model definitions, materializations).
+- **Modern Python Tooling**: Managed with [`uv`](https://docs.astral.sh/uv/) for fast, deterministic dependency resolution.
 
-From the repository root, install the locked dependencies:
+---
+
+## Target Locations & Metrics
+
+### Cities Tracked
+
+- **Casablanca** (33.5731° N, -7.5898° W)
+- **New York** (40.7128° N, -74.0060° W)
+- **Paris** (48.8566° N, 2.3522° E)
+- **Tokyo** (35.6762° N, 139.6503° E)
+- **Brasilia** (-15.7939° S, -47.8828° W)
+
+### Weather Metrics
+
+- `temperature_2m`: Air temperature at 2 meters above ground (°C)
+- `relative_humidity_2m`: Relative humidity at 2 meters above ground (%)
+- `precipitation`: Total precipitation (rain/snow) (mm)
+- `wind_speed_10m`: Wind speed at 10 meters above ground (km/h)
+- `weather_code`: WMO Weather interpretation code
+
+---
+
+## Project Structure
+
+```text
+.
+├── dbt/                         # dbt project directory
+│   ├── models/                  # dbt models and schema declarations
+│   │   ├── day_summary.sql      # SQL transformation model (City daily aggregations)
+│   │   ├── schema.yml           # Column descriptions and data quality tests
+│   │   └── sources.yml          # Raw DuckDB source declaration
+│   ├── dbt_project.yml          # dbt project configuration & materializations
+│   ├── profiles.yml             # DuckDB connection profile configuration
+│   └── warehouse.duckdb         # DuckDB database file (created upon execution)
+├── ingestion.py                 # Open-Meteo API extractor & DuckDB loader
+├── pyproject.toml               # Python project configuration & dependencies
+├── uv.lock                      # Locked dependency environment
+└── README.md                    # Project documentation
+```
+
+---
+
+## Prerequisites
+
+- **Python**: Version `3.14` or newer
+- **uv**: Fast Python package installer and dependency resolver ([Installation Guide](https://docs.astral.sh/uv/getting-started/installation/))
+
+---
+
+## Getting Started
+
+### 1. Installation
+
+Clone the repository and install dependencies using `uv`:
 
 ```bash
 uv sync
 ```
 
-Run the pipeline stages in order:
+### 2. Ingest Weather Data
+
+Run the ingestion script to fetch data from Open-Meteo and populate DuckDB:
 
 ```bash
 uv run python ingestion.py
-uv run dbt --project-dir dbt --profiles-dir dbt run
-uv run dbt --project-dir dbt --profiles-dir dbt test
 ```
 
-The local database is written to `dbt/warehouse.duckdb`. To use another
-location, set `DUCKDB_PATH` before running ingestion:
+*Output:*
+
+- Creates schema `raw` in DuckDB (default path: `dbt/warehouse.duckdb`).
+- Creates table `raw.weather_daily` with hourly weather metrics.
+
+### 3. Transform Data with dbt
+
+Execute dbt models to build the analytics summary table:
 
 ```bash
-DUCKDB_PATH=./data/warehouse.duckdb uv run python ingestion.py
+uv run dbt run --project-dir dbt --profiles-dir dbt
 ```
 
-The dbt model is available as `day_summary` and contains one row per city with
-average temperature, average relative humidity, total precipitation, and
-average wind speed.
+*Output:*
 
-## Airflow deployment
+- Creates schema `analytics` in DuckDB.
+- Materializes table `analytics.day_summary`.
 
-Build the pipeline image and initialize the Airflow metadata database:
+### 4. Validate Data Quality
+
+Run dbt tests to verify schema constraints and data integrity:
 
 ```bash
-docker build -t weather-pipeline:latest .
-docker compose up airflow-init
-docker compose up -d airflow-webserver airflow-scheduler
+uv run dbt test --project-dir dbt --profiles-dir dbt
 ```
 
-Open [http://localhost:8080](http://localhost:8080) and sign in with:
-
-```text
-Username: airflow
-Password: airflow
-```
-
-The `weather_pipeline` DAG is paused when created. Enable it in the Airflow
-web interface to run the ingestion, dbt build, and dbt tests once per day.
-
-The pipeline container writes its DuckDB database to the named
-`weather_dbt_data` volume. Airflow metadata is stored separately in the
-`postgres_data` volume.
-
-To stop the services:
-
-```bash
-docker compose down
-```
-
-To remove the persisted Airflow and warehouse data as well:
-
-```bash
-docker compose down -v
-```
-
-## Project structure
-
-```text
-.
-├── ingestion.py                 # Open-Meteo extraction and DuckDB load
-├── Dockerfile                   # Runtime image for the pipeline
-├── docker-compose.yml           # Airflow and PostgreSQL services
-├── airflow/
-│   ├── Dockerfile               # Airflow image with Docker provider
-│   └── dags/weather_pipeline.py # Daily orchestration DAG
-└── dbt/
- ├── dbt_project.yml
- ├── profiles.yml
- └── models/
-  ├── sources.yml         # raw.weather_daily source declaration
-  ├── day_summary.sql     # City-level transformation
-  └── schema.yml          # Model documentation and tests
-```
+---
 
 ## Configuration
 
-The default DuckDB path is `dbt/warehouse.duckdb`. The `DUCKDB_PATH`
-environment variable overrides it and is set to
-`/opt/weather/data/warehouse.duckdb` in the pipeline image. API retry and cache
-behavior is configured in `ingestion.py`; responses are cached locally in
-`.cache` for one hour.
+### Environment Variables
+
+| Variable | Description | Default Value |
+| :--- | :--- | :--- |
+| `DUCKDB_PATH` | Path to the DuckDB database file | `dbt/warehouse.duckdb` |
+
+To run the pipeline with a custom database location:
+
+```bash
+# Set custom DuckDB location for ingestion and dbt execution
+DUCKDB_PATH=./data/custom_warehouse.duckdb uv run python ingestion.py
+DUCKDB_PATH=./data/custom_warehouse.duckdb uv run dbt run --project-dir dbt --profiles-dir dbt
+```
+
+---
+
+## Data Models & Schema
+
+### `raw.weather_daily` (Source Table)
+
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `city` | VARCHAR | Name of the city |
+| `date` | TIMESTAMP | Timestamp of the forecast hour |
+| `temperature_2m` | DOUBLE | Hourly temperature |
+| `relative_humidity_2m` | DOUBLE | Hourly relative humidity |
+| `precipitation` | DOUBLE | Hourly precipitation |
+| `wind_speed_10m` | DOUBLE | Hourly wind speed |
+| `weather_code` | INT64 | WMO Weather code |
+
+### `analytics.day_summary` (dbt Model Table)
+
+| Column | Type | Description | Aggregation |
+| :--- | :--- | :--- | :--- |
+| `city` | VARCHAR | Primary Key / City name | Group By |
+| `avg_temperature_2m` | DOUBLE | Average temperature | `AVG(temperature_2m)` |
+| `avg_relative_humidity_2m` | DOUBLE | Average relative humidity | `AVG(relative_humidity_2m)` |
+| `sum_precipitation` | DOUBLE | Total precipitation | `SUM(precipitation)` |
+| `avg_wind_speed_10m` | DOUBLE | Average wind speed | `AVG(wind_speed_10m)` |
+
+---
+
+## Testing & Quality Assurance
+
+Data quality tests are specified in [`schema.yml`](file:///c:/Users/yahya/Desktop/DE/dbt/models/schema.yml):
+
+- **Uniqueness**: `city` column in `day_summary` must be unique across records.
+- **Non-null constraints**: All metric columns (`avg_temperature_2m`, `avg_relative_humidity_2m`, `sum_precipitation`, `avg_wind_speed_10m`, `city`) are asserted to contain no `NULL` values.

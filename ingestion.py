@@ -68,6 +68,7 @@ print(weather_df)
 print(f"\nTotal rows: {len(weather_df)}")
 
 database_path = os.getenv("DUCKDB_PATH", "dbt/warehouse.duckdb")
+os.makedirs(os.path.dirname(database_path), exist_ok=True)
 con = duckdb.connect(database_path)
 con.execute("CREATE SCHEMA IF NOT EXISTS raw")
 con.execute("CREATE OR REPLACE TABLE raw.weather_daily AS SELECT * FROM weather_df")
