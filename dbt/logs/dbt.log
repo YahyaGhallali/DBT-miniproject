@@ -1089,3 +1089,1113 @@ having count(*) > 1
 Finished 'test' successfully for target 'dev' [21.8s]
 Processed: 6 tests
 Summary: 6 total | 6 success
+==================== 2026-10-07T14:26:02.296398Z | 01a116c1-ccea-7941-ae9c-93cbc39b6573 ====================
+14:26:02.304689 [info ]: dbt 2.0.6
+14:26:02.311095 [info ]: Started loading project
+14:26:02.363664 [info ]: Loading profiles.yml
+14:26:02.453451 [debug]:    Started loading packages
+14:26:02.482027 [debug]:     Loaded [  0.03s] packages
+14:26:02.496795 [info ]: Finished loading project [  0.19s]
+14:26:02.501662 [info ]: Started parsing
+14:26:02.590063 [debug]: Finished parsing models/schema.yml [  0.01s]
+14:26:02.592166 [debug]: Finished parsing models/sources.yml [  0.00s]
+14:26:02.621177 [debug]: Finished parsing models/day_summary.sql [  0.02s]
+14:26:02.661609 [debug]: Finished parsing target\generic_tests\not_null_day_summary_avg_relative_humidity_2m.sql [  0.02s]
+14:26:02.668001 [debug]: Finished parsing target\generic_tests\not_null_day_summary_avg_temperature_2m.sql [  0.01s]
+14:26:02.669973 [debug]: Finished parsing target\generic_tests\not_null_day_summary_avg_wind_speed_10m.sql [  0.00s]
+14:26:02.672160 [debug]: Finished parsing target\generic_tests\not_null_day_summary_city.sql [  0.00s]
+14:26:02.673909 [debug]: Finished parsing target\generic_tests\unique_day_summary_city.sql [  0.00s]
+14:26:02.675914 [debug]: Finished parsing target\generic_tests\not_null_day_summary_sum_precipitation.sql [  0.00s]
+14:26:02.923093 [info ]: Finished parsing [  0.42s]
+14:26:03.044307 [info ]: Started scheduling
+14:26:03.050126 [info ]: Finished scheduling [  0.01s]
+14:26:03.063018 [debug]: Initializing schema store with entry: Frontier(CanonicalFqn { catalog: "warehouse", schema: "raw", table: "weather_daily" }) and interval: None
+14:26:03.092846 [info ]: Started building task graph
+14:26:03.100374 [info ]: Finished building task graph [  0.01s]
+14:26:03.176648 [debug]: DuckDB driver resolved: duckdb 1.5.4
+14:26:03.306563 [debug]: create_debug_span(...).entered() took 487.4µs
+14:26:03.314234 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 1.4801ms
+14:26:03.314387 [debug]: reader.schema() took 122.7µs
+14:26:03.314451 [debug]: batch-consume loop (for res in reader) took 50.1µs
+14:26:03.314621 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 8.0242ms
+14:26:03.315089 [debug]: concat_batches + normalize_result_column_names took 453.6µs
+14:26:03.315239 [debug]: record_current_span_status_from_attrs took 134.7µs
+14:26:03.315452 [debug]: Query executed on node unknown:
+/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"warehouse"'
+    
+  
+  
+14:26:03.315497 [debug]: drop(query_span_guard) (span exit/export) took 243.7µs
+14:26:03.319665 [debug]: create_debug_span(...).entered() took 14.8µs
+14:26:03.321860 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 918.2µs
+14:26:03.321888 [debug]: reader.schema() took 500ns
+14:26:03.321919 [debug]: batch-consume loop (for res in reader) took 24.3µs
+14:26:03.321945 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 2.2542ms
+14:26:03.321961 [debug]: concat_batches + normalize_result_column_names took 10.8µs
+14:26:03.321973 [debug]: record_current_span_status_from_attrs took 4.2µs
+14:26:03.321982 [debug]: Query executed on node unknown:
+/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='warehouse'
+        and type='sqlite'
+    
+  
+14:26:03.322007 [debug]: drop(query_span_guard) (span exit/export) took 29.3µs
+14:26:03.323086 [debug]: create_debug_span(...).entered() took 18.2µs
+14:26:03.325713 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 2.264ms
+14:26:03.325736 [debug]: reader.schema() took 600ns
+14:26:03.325922 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 2.8165ms
+14:26:03.325944 [debug]: concat_batches + normalize_result_column_names took 7.4µs
+14:26:03.325954 [debug]: record_current_span_status_from_attrs took 3.8µs
+14:26:03.325963 [debug]: Query executed on node unknown:
+/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    
+        create schema if not exists "warehouse"."analytics"
+    
+14:26:03.325989 [debug]: drop(query_span_guard) (span exit/export) took 28.9µs
+14:26:03.328157 [info ]: Started rendering (1 nodes)
+14:26:03.328868 [info ]: Started model analytics.day_summary
+14:26:03.329296 [debug]: Started rendering model analytics.day_summary
+14:26:03.339392 [debug]: Compiled SQL for node model.weather_dbt.day_summary at target\compiled\weather_dbt\models\day_summary.sql
+14:26:03.341880 [debug]: Finished rendering [  0.01s] model analytics.day_summary [success]
+14:26:03.341925 [info ]: Finished rendering [  0.01s] (1 nodes, 0 skipped, 0 errors)
+14:26:03.342517 [info ]: Started analyzing (1 nodes)
+14:26:03.342539 [debug]: Started analyzing model analytics.day_summary
+14:26:03.370161 [debug]: Finished analyzing [  0.03s] model analytics.day_summary [success]
+14:26:03.370201 [info ]: Finished analyzing [  0.03s] (1 nodes, 0 skipped, 0 errors)
+14:26:03.370236 [info ]: Started running (1 nodes)
+14:26:03.370252 [info ]: Started running model analytics.day_summary
+14:26:03.401995 [debug]: create_debug_span(...).entered() took 22.9µs
+14:26:03.408772 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 3.5171ms
+14:26:03.408797 [debug]: reader.schema() took 500ns
+14:26:03.408834 [debug]: batch-consume loop (for res in reader) took 31.6µs
+14:26:03.408865 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 6.8443ms
+14:26:03.408887 [debug]: concat_batches + normalize_result_column_names took 12.6µs
+14:26:03.408896 [debug]: record_current_span_status_from_attrs took 3.4µs
+14:26:03.408904 [debug]: Query executed on node model.weather_dbt.day_summary:
+SELECT table_catalog, table_schema, table_name, table_type FROM information_schema.tables WHERE table_schema = 'analytics' AND lower(table_catalog) = lower('warehouse')
+14:26:03.408929 [debug]: drop(query_span_guard) (span exit/export) took 28µs
+14:26:03.414365 [debug]: Writing runtime sql for node "model.weather_dbt.day_summary"
+14:26:03.417517 [debug]: create_debug_span(...).entered() took 20µs
+14:26:03.423992 [debug]: Query executed on node model.weather_dbt.day_summary:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.weather_dbt.day_summary", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+  
+    
+    
+    create  table
+      "warehouse"."analytics"."day_summary__dbt_tmp"
+  
+    as (
+      SELECT
+    "city",
+    AVG("temperature_2m") AS "avg_temperature_2m",
+    AVG("relative_humidity_2m") AS "avg_relative_humidity_2m",
+    SUM("precipitation") AS "sum_precipitation",
+    AVG("wind_speed_10m") AS "avg_wind_speed_10m",
+FROM
+    "warehouse"."raw"."weather_daily"
+GROUP BY
+    "city"
+    );
+  
+    
+  
+14:26:04.430272 [error]: [DbDriverFailed (dbt1308)]: Database Error in model day_summary (target\run\weather_dbt\models\day_summary.sql)
+  Catalog Error: Table with name "raw.weather_daily" does not exist because schema "raw" does not exist.
+  
+  LINE 17:     "warehouse"."raw"."weather_daily"
+               ^
+  (in run\weather_dbt\models\day_summary.sql)
+14:26:04.431863 [info ]: Finished running [  1.06s] model analytics.day_summary [error]
+14:26:04.431917 [info ]: Finished running [  1.06s] (1 nodes, 0 skipped, 1 errors)
+14:26:04.431937 [info ]:     Failed model analytics.day_summary (table) [1 of 1 in 1.10s]
+14:26:19.923701 [info ]: 
+==================== Execution Summary =====================
+Finished 'run' with 1 error for target 'dev' [17.6s]
+Processed: 1 model
+Summary: 1 total | 1 error
+==================== 2026-10-07T14:28:08.068723Z | 01a116c3-b863-7641-afee-988f1186e4bf ====================
+14:28:08.073068 [info ]: dbt 2.0.6
+14:28:08.078076 [info ]: Started loading project
+14:28:08.134890 [info ]: Loading profiles.yml
+14:28:08.194737 [debug]:    Started loading packages
+14:28:08.213851 [debug]:     Loaded [  0.02s] packages
+14:28:08.223846 [info ]: Finished loading project [  0.15s]
+14:28:08.227729 [info ]: Started parsing
+14:28:08.308448 [debug]: Finished parsing models/schema.yml [  0.01s]
+14:28:08.309827 [debug]: Finished parsing models/sources.yml [  0.00s]
+14:28:08.343785 [debug]: Finished parsing models/day_summary.sql [  0.02s]
+14:28:08.400507 [debug]: Finished parsing target\generic_tests\not_null_day_summary_avg_relative_humidity_2m.sql [  0.02s]
+14:28:08.416494 [debug]: Finished parsing target\generic_tests\not_null_day_summary_avg_temperature_2m.sql [  0.02s]
+14:28:08.419128 [debug]: Finished parsing target\generic_tests\not_null_day_summary_avg_wind_speed_10m.sql [  0.00s]
+14:28:08.432890 [debug]: Finished parsing target\generic_tests\not_null_day_summary_city.sql [  0.01s]
+14:28:08.443854 [debug]: Finished parsing target\generic_tests\unique_day_summary_city.sql [  0.01s]
+14:28:08.449121 [debug]: Finished parsing target\generic_tests\not_null_day_summary_sum_precipitation.sql [  0.01s]
+14:28:08.678162 [info ]: Finished parsing [  0.45s]
+14:28:08.807295 [info ]: Started scheduling
+14:28:08.811445 [info ]: Finished scheduling [  0.00s]
+14:28:08.821129 [debug]: Initializing schema store with entry: Frontier(CanonicalFqn { catalog: "warehouse", schema: "raw", table: "weather_daily" }) and interval: None
+14:28:08.839719 [info ]: Started building task graph
+14:28:08.844958 [info ]: Finished building task graph [  0.01s]
+14:28:08.891251 [debug]: DuckDB driver resolved: duckdb 1.5.4
+14:28:09.057127 [debug]: create_debug_span(...).entered() took 462.4µs
+14:28:09.076423 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 3.7623ms
+14:28:09.076788 [debug]: reader.schema() took 317.9µs
+14:28:09.077326 [debug]: batch-consume loop (for res in reader) took 509.5µs
+14:28:09.077811 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 20.6446ms
+14:28:09.078972 [debug]: concat_batches + normalize_result_column_names took 1.1286ms
+14:28:09.079314 [debug]: record_current_span_status_from_attrs took 312.9µs
+14:28:09.079485 [debug]: Query executed on node unknown:
+/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"warehouse"'
+    
+  
+  
+14:28:09.079536 [debug]: drop(query_span_guard) (span exit/export) took 197.3µs
+14:28:09.084953 [debug]: create_debug_span(...).entered() took 22.2µs
+14:28:09.087342 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 1.1524ms
+14:28:09.087367 [debug]: reader.schema() took 500ns
+14:28:09.087400 [debug]: batch-consume loop (for res in reader) took 24.8µs
+14:28:09.087425 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 2.4386ms
+14:28:09.087448 [debug]: concat_batches + normalize_result_column_names took 12.9µs
+14:28:09.087459 [debug]: record_current_span_status_from_attrs took 3.8µs
+14:28:09.087469 [debug]: Query executed on node unknown:
+/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='warehouse'
+        and type='sqlite'
+    
+  
+14:28:09.087501 [debug]: drop(query_span_guard) (span exit/export) took 35.6µs
+14:28:09.088766 [debug]: create_debug_span(...).entered() took 17µs
+14:28:09.090580 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 400µs
+14:28:09.090601 [debug]: reader.schema() took 700ns
+14:28:09.090745 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 1.9535ms
+14:28:09.090763 [debug]: concat_batches + normalize_result_column_names took 6.7µs
+14:28:09.090770 [debug]: record_current_span_status_from_attrs took 2.8µs
+14:28:09.090777 [debug]: Query executed on node unknown:
+/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    
+        create schema if not exists "warehouse"."analytics"
+    
+14:28:09.090798 [debug]: drop(query_span_guard) (span exit/export) took 23.5µs
+14:28:09.093634 [info ]: Started rendering (1 nodes)
+14:28:09.094135 [info ]: Started model analytics.day_summary
+14:28:09.094497 [debug]: Started rendering model analytics.day_summary
+14:28:09.108512 [debug]: Compiled SQL for node model.weather_dbt.day_summary at target\compiled\weather_dbt\models\day_summary.sql
+14:28:09.112469 [debug]: Finished rendering [  0.02s] model analytics.day_summary [success]
+14:28:09.112694 [info ]: Finished rendering [  0.02s] (1 nodes, 0 skipped, 0 errors)
+14:28:09.113836 [info ]: Started analyzing (1 nodes)
+14:28:09.113889 [debug]: Started analyzing model analytics.day_summary
+14:28:09.148935 [debug]: Finished analyzing [  0.04s] model analytics.day_summary [success]
+14:28:09.148989 [info ]: Finished analyzing [  0.04s] (1 nodes, 0 skipped, 0 errors)
+14:28:09.149025 [info ]: Started running (1 nodes)
+14:28:09.149037 [info ]: Started running model analytics.day_summary
+14:28:09.181586 [debug]: create_debug_span(...).entered() took 25.3µs
+14:28:09.195059 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 6.806ms
+14:28:09.195110 [debug]: reader.schema() took 700ns
+14:28:09.196514 [debug]: batch-consume loop (for res in reader) took 1.3819ms
+14:28:09.196755 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 15.1342ms
+14:28:09.197752 [debug]: concat_batches + normalize_result_column_names took 967.2µs
+14:28:09.197781 [debug]: record_current_span_status_from_attrs took 3.8µs
+14:28:09.197793 [debug]: Query executed on node model.weather_dbt.day_summary:
+SELECT table_catalog, table_schema, table_name, table_type FROM information_schema.tables WHERE table_schema = 'analytics' AND lower(table_catalog) = lower('warehouse')
+14:28:09.197823 [debug]: drop(query_span_guard) (span exit/export) took 34.5µs
+14:28:09.202832 [debug]: Writing runtime sql for node "model.weather_dbt.day_summary"
+14:28:09.205178 [debug]: create_debug_span(...).entered() took 23.6µs
+14:28:09.235332 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 23.4517ms
+14:28:09.235366 [debug]: reader.schema() took 700ns
+14:28:09.235500 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 30.2947ms
+14:28:09.235520 [debug]: concat_batches + normalize_result_column_names took 7.7µs
+14:28:09.235528 [debug]: record_current_span_status_from_attrs took 3.7µs
+14:28:09.235538 [debug]: Query executed on node model.weather_dbt.day_summary:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.weather_dbt.day_summary", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+  
+    
+    
+    create  table
+      "warehouse"."analytics"."day_summary__dbt_tmp"
+  
+    as (
+      SELECT
+    "city",
+    AVG("temperature_2m") AS "avg_temperature_2m",
+    AVG("relative_humidity_2m") AS "avg_relative_humidity_2m",
+    SUM("precipitation") AS "sum_precipitation",
+    AVG("wind_speed_10m") AS "avg_wind_speed_10m",
+FROM
+    "warehouse"."raw"."weather_daily"
+GROUP BY
+    "city"
+    );
+  
+    
+  
+14:28:09.235567 [debug]: drop(query_span_guard) (span exit/export) took 33.4µs
+14:28:09.237897 [debug]: create_debug_span(...).entered() took 16.5µs
+14:28:09.238706 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 227.2µs
+14:28:09.238732 [debug]: reader.schema() took 500ns
+14:28:09.238772 [debug]: batch-consume loop (for res in reader) took 31.2µs
+14:28:09.238802 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 878.8µs
+14:28:09.238825 [debug]: concat_batches + normalize_result_column_names took 11.1µs
+14:28:09.238836 [debug]: record_current_span_status_from_attrs took 2.6µs
+14:28:09.238846 [debug]: Query executed on node model.weather_dbt.day_summary:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.weather_dbt.day_summary", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    SELECT index_name
+    FROM duckdb_indexes()
+    WHERE schema_name = 'analytics'
+      AND table_name = 'day_summary'
+  
+14:28:09.238878 [debug]: drop(query_span_guard) (span exit/export) took 35.2µs
+14:28:09.240377 [debug]: create_debug_span(...).entered() took 13.4µs
+14:28:09.241232 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 278.9µs
+14:28:09.241252 [debug]: reader.schema() took 500ns
+14:28:09.241319 [debug]: batch-consume loop (for res in reader) took 60.8µs
+14:28:09.241573 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 1.1707ms
+14:28:09.241795 [debug]: concat_batches + normalize_result_column_names took 195.2µs
+14:28:09.241823 [debug]: record_current_span_status_from_attrs took 3.3µs
+14:28:09.241836 [debug]: Query executed on node model.weather_dbt.day_summary:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.weather_dbt.day_summary", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    SELECT COUNT(*) as remaining_indexes
+    FROM duckdb_indexes()
+    WHERE schema_name = 'analytics'
+      AND table_name = 'day_summary'
+  
+14:28:09.241864 [debug]: drop(query_span_guard) (span exit/export) took 33.2µs
+14:28:09.248053 [debug]: create_debug_span(...).entered() took 21.4µs
+14:28:09.251284 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 1.9141ms
+14:28:09.251312 [debug]: reader.schema() took 600ns
+14:28:09.251330 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 3.2504ms
+14:28:09.251341 [debug]: concat_batches + normalize_result_column_names took 6.8µs
+14:28:09.251348 [debug]: record_current_span_status_from_attrs took 2.8µs
+14:28:09.251356 [debug]: Query executed on node model.weather_dbt.day_summary:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.weather_dbt.day_summary", "profile_name": "weather_dbt", "target_name": "dev"} */
+alter table "warehouse"."analytics"."day_summary" rename to "day_summary__dbt_backup"
+14:28:09.251382 [debug]: drop(query_span_guard) (span exit/export) took 29.4µs
+14:28:09.254069 [debug]: create_debug_span(...).entered() took 16.8µs
+14:28:09.255464 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 1.1459ms
+14:28:09.255487 [debug]: reader.schema() took 600ns
+14:28:09.255502 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 1.4088ms
+14:28:09.255513 [debug]: concat_batches + normalize_result_column_names took 5.9µs
+14:28:09.255519 [debug]: record_current_span_status_from_attrs took 2.5µs
+14:28:09.255526 [debug]: Query executed on node model.weather_dbt.day_summary:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.weather_dbt.day_summary", "profile_name": "weather_dbt", "target_name": "dev"} */
+alter table "warehouse"."analytics"."day_summary__dbt_tmp" rename to "day_summary"
+14:28:09.255555 [debug]: drop(query_span_guard) (span exit/export) took 31.9µs
+14:28:09.260822 [debug]: create_debug_span(...).entered() took 27.3µs
+14:28:09.264369 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 2.3624ms
+14:28:09.264397 [debug]: reader.schema() took 500ns
+14:28:09.264417 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 3.5565ms
+14:28:09.264429 [debug]: concat_batches + normalize_result_column_names took 7.4µs
+14:28:09.264436 [debug]: record_current_span_status_from_attrs took 3.7µs
+14:28:09.264445 [debug]: Query executed on node model.weather_dbt.day_summary:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.weather_dbt.day_summary", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+      drop table if exists "warehouse"."analytics"."day_summary__dbt_backup" cascade
+    
+14:28:09.264471 [debug]: drop(query_span_guard) (span exit/export) took 30µs
+14:28:09.268457 [info ]: Finished running [  0.12s] model analytics.day_summary [success]
+14:28:09.268487 [info ]: Finished running [  0.12s] (1 nodes, 0 skipped, 0 errors)
+14:28:09.268499 [info ]:  Succeeded model analytics.day_summary (table) [1 of 1 in 0.17s]
+14:28:09.722308 [info ]: 
+==================== Execution Summary =====================
+Finished 'run' successfully for target 'dev' [1.7s]
+Processed: 1 model
+Summary: 1 total | 1 success
+==================== 2026-10-07T14:28:19.768309Z | 01a116c3-e6b1-7a13-b8ec-2a77d7d4aa8f ====================
+14:28:19.768892 [info ]: dbt 2.0.6
+14:28:19.769601 [info ]: Started loading project
+14:28:19.775162 [info ]: Loading profiles.yml
+14:28:19.784962 [debug]:    Started loading packages
+14:28:19.788966 [debug]:     Loaded [  0.00s] packages
+14:28:19.792111 [info ]: Finished loading project [  0.02s]
+14:28:19.793916 [info ]: Started parsing
+14:28:19.852922 [debug]: Finished parsing models/schema.yml [  0.00s]
+14:28:19.853391 [debug]: Finished parsing models/sources.yml [  0.00s]
+14:28:19.856691 [debug]: Finished parsing models/day_summary.sql [  0.00s]
+14:28:19.870391 [debug]: Finished parsing target\generic_tests\not_null_day_summary_avg_relative_humidity_2m.sql [  0.00s]
+14:28:19.872989 [debug]: Finished parsing target\generic_tests\not_null_day_summary_avg_temperature_2m.sql [  0.00s]
+14:28:19.875755 [debug]: Finished parsing target\generic_tests\not_null_day_summary_avg_wind_speed_10m.sql [  0.00s]
+14:28:19.878861 [debug]: Finished parsing target\generic_tests\not_null_day_summary_city.sql [  0.00s]
+14:28:19.880941 [debug]: Finished parsing target\generic_tests\unique_day_summary_city.sql [  0.00s]
+14:28:19.883678 [debug]: Finished parsing target\generic_tests\not_null_day_summary_sum_precipitation.sql [  0.00s]
+14:28:20.142306 [info ]: Finished parsing [  0.35s]
+14:28:20.144511 [info ]: Started scheduling
+14:28:20.144794 [info ]: Finished scheduling [  0.00s]
+14:28:20.150272 [debug]: Initializing schema store with entry: Frontier(CanonicalFqn { catalog: "warehouse", schema: "analytics", table: "day_summary" }) and interval: None
+14:28:20.153176 [info ]: Started building task graph
+14:28:20.153718 [info ]: Finished building task graph [  0.00s]
+14:28:20.159482 [info ]: Started rendering (6 nodes)
+14:28:20.159705 [info ]: Started test analytics_dbt_test__audit.unique_day_summary_city
+14:28:20.159788 [debug]: Started rendering test analytics_dbt_test__audit.unique_day_summary_city
+14:28:20.159878 [info ]: Started test analytics_dbt_test__audit.not_null_day_summary_sum_precipitation
+14:28:20.159901 [debug]: Started rendering test analytics_dbt_test__audit.not_null_day_summary_sum_precipitation
+14:28:20.159929 [info ]: Started test analytics_dbt_test__audit.not_null_day_summary_city
+14:28:20.159949 [debug]: Started rendering test analytics_dbt_test__audit.not_null_day_summary_city
+14:28:20.159976 [info ]: Started test analytics_dbt_test__audit.not_null_day_summary_avg_wind_speed_10m
+14:28:20.159995 [debug]: Started rendering test analytics_dbt_test__audit.not_null_day_summary_avg_wind_speed_10m
+14:28:20.160019 [info ]: Started test analytics_dbt_test__audit.not_null_day_summary_avg_temperature_2m
+14:28:20.160046 [debug]: Started rendering test analytics_dbt_test__audit.not_null_day_summary_avg_temperature_2m
+14:28:20.160088 [info ]: Started test analytics_dbt_test__audit.not_null_day_summary_avg_relative_humidity_2m
+14:28:20.160108 [debug]: Started rendering test analytics_dbt_test__audit.not_null_day_summary_avg_relative_humidity_2m
+14:28:20.180754 [debug]: Compiled SQL for node test.weather_dbt.not_null_day_summary_sum_precipitation.e0d1583e32 at target\compiled\weather_dbt\target\generic_tests\not_null_day_summary_sum_precipitation.sql
+14:28:20.180947 [debug]: Compiled SQL for node test.weather_dbt.not_null_day_summary_avg_wind_speed_10m.ded6b80db0 at target\compiled\weather_dbt\target\generic_tests\not_null_day_summary_avg_wind_speed_10m.sql
+14:28:20.181317 [debug]: Finished rendering [  0.02s] test analytics_dbt_test__audit.not_null_day_summary_sum_precipitation [success]
+14:28:20.182558 [debug]: Compiled SQL for node test.weather_dbt.unique_day_summary_city.1bfa6ad5ff at target\compiled\weather_dbt\target\generic_tests\unique_day_summary_city.sql
+14:28:20.183320 [info ]: Started analyzing (6 nodes)
+14:28:20.183349 [debug]: Started analyzing test analytics_dbt_test__audit.not_null_day_summary_sum_precipitation
+14:28:20.183406 [debug]: Finished rendering [  0.02s] test analytics_dbt_test__audit.not_null_day_summary_avg_wind_speed_10m [success]
+14:28:20.183453 [debug]: Started analyzing test analytics_dbt_test__audit.not_null_day_summary_avg_wind_speed_10m
+14:28:20.183479 [debug]: Finished rendering [  0.02s] test analytics_dbt_test__audit.unique_day_summary_city [success]
+14:28:20.183509 [debug]: Started analyzing test analytics_dbt_test__audit.unique_day_summary_city
+14:28:20.184836 [debug]: Compiled SQL for node test.weather_dbt.not_null_day_summary_avg_temperature_2m.4ff0f13c8a at target\compiled\weather_dbt\target\generic_tests\not_null_day_summary_avg_temperature_2m.sql
+14:28:20.185152 [debug]: Finished rendering [  0.03s] test analytics_dbt_test__audit.not_null_day_summary_avg_temperature_2m [success]
+14:28:20.185210 [debug]: Started analyzing test analytics_dbt_test__audit.not_null_day_summary_avg_temperature_2m
+14:28:20.185623 [debug]: Compiled SQL for node test.weather_dbt.not_null_day_summary_city.516861ee8f at target\compiled\weather_dbt\target\generic_tests\not_null_day_summary_city.sql
+14:28:20.186507 [debug]: Compiled SQL for node test.weather_dbt.not_null_day_summary_avg_relative_humidity_2m.9dd40b7b18 at target\compiled\weather_dbt\target\generic_tests\not_null_day_summary_avg_relative_humidity_2m.sql
+14:28:20.186816 [debug]: Finished rendering [  0.03s] test analytics_dbt_test__audit.not_null_day_summary_city [success]
+14:28:20.186877 [debug]: Started analyzing test analytics_dbt_test__audit.not_null_day_summary_city
+14:28:20.188066 [debug]: Finished rendering [  0.03s] test analytics_dbt_test__audit.not_null_day_summary_avg_relative_humidity_2m [success]
+14:28:20.188100 [info ]: Finished rendering [  0.03s] (6 nodes, 0 skipped, 0 errors)
+14:28:20.188148 [debug]: Started analyzing test analytics_dbt_test__audit.not_null_day_summary_avg_relative_humidity_2m
+14:28:20.198321 [debug]: Finished analyzing [  0.01s] test analytics_dbt_test__audit.not_null_day_summary_sum_precipitation [success]
+14:28:20.198649 [info ]: Started running (6 nodes)
+14:28:20.198680 [info ]: Started running test analytics_dbt_test__audit.not_null_day_summary_sum_precipitation
+14:28:20.198721 [debug]: Finished analyzing [  0.02s] test analytics_dbt_test__audit.not_null_day_summary_avg_wind_speed_10m [success]
+14:28:20.198761 [info ]: Started running test analytics_dbt_test__audit.not_null_day_summary_avg_wind_speed_10m
+14:28:20.198782 [debug]: Finished analyzing [  0.01s] test analytics_dbt_test__audit.not_null_day_summary_avg_relative_humidity_2m [success]
+14:28:20.198808 [info ]: Started running test analytics_dbt_test__audit.not_null_day_summary_avg_relative_humidity_2m
+14:28:20.198825 [debug]: Finished analyzing [  0.01s] test analytics_dbt_test__audit.not_null_day_summary_city [success]
+14:28:20.198851 [info ]: Started running test analytics_dbt_test__audit.not_null_day_summary_city
+14:28:20.198866 [debug]: Finished analyzing [  0.01s] test analytics_dbt_test__audit.not_null_day_summary_avg_temperature_2m [success]
+14:28:20.198891 [info ]: Started running test analytics_dbt_test__audit.not_null_day_summary_avg_temperature_2m
+14:28:20.203288 [debug]: Writing runtime sql for node "test.weather_dbt.not_null_day_summary_avg_wind_speed_10m.ded6b80db0"
+14:28:20.203314 [debug]: Writing runtime sql for node "test.weather_dbt.not_null_day_summary_sum_precipitation.e0d1583e32"
+14:28:20.203601 [debug]: Writing runtime sql for node "test.weather_dbt.not_null_day_summary_avg_relative_humidity_2m.9dd40b7b18"
+14:28:20.204537 [debug]: Writing runtime sql for node "test.weather_dbt.not_null_day_summary_city.516861ee8f"
+14:28:20.204900 [debug]: Writing runtime sql for node "test.weather_dbt.not_null_day_summary_avg_temperature_2m.4ff0f13c8a"
+14:28:20.207377 [debug]: Finished analyzing [  0.02s] test analytics_dbt_test__audit.unique_day_summary_city [success]
+14:28:20.207418 [info ]: Finished analyzing [  0.02s] (6 nodes, 0 skipped, 0 errors)
+14:28:20.207474 [info ]: Started running test analytics_dbt_test__audit.unique_day_summary_city
+14:28:20.208884 [debug]: DuckDB driver resolved: duckdb 1.5.4
+14:28:20.211342 [debug]: Writing runtime sql for node "test.weather_dbt.unique_day_summary_city.1bfa6ad5ff"
+14:28:20.253418 [debug]: create_debug_span(...).entered() took 48.5µs
+14:28:20.253418 [debug]: create_debug_span(...).entered() took 51.2µs
+14:28:20.253418 [debug]: create_debug_span(...).entered() took 50.9µs
+14:28:20.253418 [debug]: create_debug_span(...).entered() took 48.6µs
+14:28:20.253620 [debug]: create_debug_span(...).entered() took 18.1µs
+14:28:20.254189 [debug]: create_debug_span(...).entered() took 20.9µs
+14:28:20.256755 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 495.7µs
+14:28:20.256755 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 568.9µs
+14:28:20.256766 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 581µs
+14:28:20.256780 [debug]: reader.schema() took 3.4µs
+14:28:20.256780 [debug]: reader.schema() took 3.4µs
+14:28:20.256783 [debug]: reader.schema() took 400ns
+14:28:20.256791 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 592.5µs
+14:28:20.256810 [debug]: reader.schema() took 400ns
+14:28:20.256903 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 689.8µs
+14:28:20.256930 [debug]: reader.schema() took 100ns
+14:28:20.257116 [debug]: batch-consume loop (for res in reader) took 321.5µs
+14:28:20.257116 [debug]: batch-consume loop (for res in reader) took 323.9µs
+14:28:20.257123 [debug]: batch-consume loop (for res in reader) took 175.6µs
+14:28:20.257135 [debug]: batch-consume loop (for res in reader) took 312.3µs
+14:28:20.257164 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 3.5339ms
+14:28:20.257165 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 2.9526ms
+14:28:20.257164 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 3.719ms
+14:28:20.257167 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 3.7202ms
+14:28:20.257215 [debug]: concat_batches + normalize_result_column_names took 43.1µs
+14:28:20.257215 [debug]: concat_batches + normalize_result_column_names took 41.7µs
+14:28:20.257215 [debug]: concat_batches + normalize_result_column_names took 38µs
+14:28:20.257234 [debug]: record_current_span_status_from_attrs took 13.5µs
+14:28:20.257235 [debug]: record_current_span_status_from_attrs took 13.5µs
+14:28:20.257236 [debug]: record_current_span_status_from_attrs took 11.7µs
+14:28:20.257248 [debug]: Query executed on node test.weather_dbt.not_null_day_summary_sum_precipitation.e0d1583e32:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "test.weather_dbt.not_null_day_summary_sum_precipitation.e0d1583e32", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select sum_precipitation
+from "warehouse"."analytics"."day_summary"
+where sum_precipitation is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+14:28:20.257248 [debug]: Query executed on node test.weather_dbt.not_null_day_summary_avg_wind_speed_10m.ded6b80db0:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "test.weather_dbt.not_null_day_summary_avg_wind_speed_10m.ded6b80db0", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select avg_wind_speed_10m
+from "warehouse"."analytics"."day_summary"
+where avg_wind_speed_10m is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+14:28:20.257249 [debug]: Query executed on node test.weather_dbt.not_null_day_summary_avg_temperature_2m.4ff0f13c8a:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "test.weather_dbt.not_null_day_summary_avg_temperature_2m.4ff0f13c8a", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select avg_temperature_2m
+from "warehouse"."analytics"."day_summary"
+where avg_temperature_2m is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+14:28:20.257281 [debug]: drop(query_span_guard) (span exit/export) took 39.8µs
+14:28:20.257281 [debug]: drop(query_span_guard) (span exit/export) took 39.5µs
+14:28:20.257283 [debug]: drop(query_span_guard) (span exit/export) took 37.8µs
+14:28:20.257476 [debug]: batch-consume loop (for res in reader) took 687.3µs
+14:28:20.257498 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 4.0543ms
+14:28:20.257507 [debug]: concat_batches + normalize_result_column_names took 3.1µs
+14:28:20.257514 [debug]: record_current_span_status_from_attrs took 1.2µs
+14:28:20.257520 [debug]: Query executed on node test.weather_dbt.not_null_day_summary_avg_relative_humidity_2m.9dd40b7b18:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "test.weather_dbt.not_null_day_summary_avg_relative_humidity_2m.9dd40b7b18", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select avg_relative_humidity_2m
+from "warehouse"."analytics"."day_summary"
+where avg_relative_humidity_2m is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+14:28:20.257536 [debug]: drop(query_span_guard) (span exit/export) took 17.4µs
+14:28:20.257603 [debug]: concat_batches + normalize_result_column_names took 428.8µs
+14:28:20.257613 [debug]: record_current_span_status_from_attrs took 2.3µs
+14:28:20.257623 [debug]: Query executed on node test.weather_dbt.not_null_day_summary_city.516861ee8f:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "test.weather_dbt.not_null_day_summary_city.516861ee8f", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select city
+from "warehouse"."analytics"."day_summary"
+where city is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+14:28:20.257646 [debug]: drop(query_span_guard) (span exit/export) took 26.3µs
+14:28:20.261137 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 4.95ms
+14:28:20.261171 [debug]: reader.schema() took 500ns
+14:28:20.261282 [debug]: batch-consume loop (for res in reader) took 100.2µs
+14:28:20.261423 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 7.977ms
+14:28:20.261445 [debug]: concat_batches + normalize_result_column_names took 5.8µs
+14:28:20.261452 [debug]: record_current_span_status_from_attrs took 3.2µs
+14:28:20.261461 [debug]: Query executed on node test.weather_dbt.unique_day_summary_city.1bfa6ad5ff:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "test.weather_dbt.unique_day_summary_city.1bfa6ad5ff", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+select
+    city as unique_field,
+    count(*) as n_records
+
+from "warehouse"."analytics"."day_summary"
+where city is not null
+group by city
+having count(*) > 1
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+14:28:20.261487 [debug]: drop(query_span_guard) (span exit/export) took 30.1µs
+14:28:20.262626 [info ]: Finished running [  0.06s] test analytics_dbt_test__audit.unique_day_summary_city [pass]
+14:28:20.262667 [info ]:     Passed test  unique_day_summary_city [1 of 6 in 0.10s]
+14:28:20.263059 [info ]: Finished running [  0.06s] test analytics_dbt_test__audit.not_null_day_summary_city [pass]
+14:28:20.263082 [info ]:     Passed test  not_null_day_summary_city [3 of 6 in 0.10s]
+14:28:20.263124 [info ]: Finished running [  0.06s] test analytics_dbt_test__audit.not_null_day_summary_avg_relative_humidity_2m [pass]
+14:28:20.263144 [info ]:     Passed test  not_null_day_summary_avg_relative_humidity_2m [6 of 6 in 0.10s]
+14:28:20.263180 [info ]: Finished running [  0.06s] test analytics_dbt_test__audit.not_null_day_summary_avg_temperature_2m [pass]
+14:28:20.263190 [info ]:     Passed test  not_null_day_summary_avg_temperature_2m [5 of 6 in 0.10s]
+14:28:20.263224 [info ]: Finished running [  0.06s] test analytics_dbt_test__audit.not_null_day_summary_sum_precipitation [pass]
+14:28:20.263236 [info ]:     Passed test  not_null_day_summary_sum_precipitation [2 of 6 in 0.10s]
+14:28:20.263270 [info ]: Finished running [  0.06s] test analytics_dbt_test__audit.not_null_day_summary_avg_wind_speed_10m [pass]
+14:28:20.263281 [info ]: Finished running [  0.06s] (6 nodes, 0 skipped, 0 errors)
+14:28:20.263291 [info ]:     Passed test  not_null_day_summary_avg_wind_speed_10m [4 of 6 in 0.10s]
+14:28:37.265144 [info ]: 
+==================== Execution Summary =====================
+Finished 'test' successfully for target 'dev' [17.5s]
+Processed: 6 tests
+Summary: 6 total | 6 success
+==================== 2026-10-07T16:05:31.937428Z | 01a1171c-e419-7952-a076-a2f54290da95 ====================
+16:05:31.941438 [info ]: dbt 2.0.6
+16:05:31.946228 [info ]: Started loading project
+16:05:31.985431 [info ]: Loading profiles.yml
+16:05:32.090379 [debug]:    Started loading packages
+16:05:32.119382 [debug]:     Loaded [  0.03s] packages
+16:05:32.134921 [info ]: Finished loading project [  0.19s]
+16:05:32.165670 [info ]: Started parsing
+16:05:32.277362 [debug]: Finished parsing models/schema.yml [  0.01s]
+16:05:32.279242 [debug]: Finished parsing models/sources.yml [  0.00s]
+16:05:32.316282 [debug]: Finished parsing models/day_summary.sql [  0.01s]
+16:05:32.338541 [debug]: Finished parsing target\generic_tests\not_null_day_summary_avg_relative_humidity_2m.sql [  0.00s]
+16:05:32.341253 [debug]: Finished parsing target\generic_tests\not_null_day_summary_avg_temperature_2m.sql [  0.00s]
+16:05:32.343233 [debug]: Finished parsing target\generic_tests\not_null_day_summary_avg_wind_speed_10m.sql [  0.00s]
+16:05:32.345640 [debug]: Finished parsing target\generic_tests\not_null_day_summary_city.sql [  0.00s]
+16:05:32.347720 [debug]: Finished parsing target\generic_tests\unique_day_summary_city.sql [  0.00s]
+16:05:32.350506 [debug]: Finished parsing target\generic_tests\not_null_day_summary_sum_precipitation.sql [  0.00s]
+16:05:32.611686 [info ]: Finished parsing [  0.45s]
+16:05:32.725373 [info ]: Started scheduling
+16:05:32.729203 [info ]: Finished scheduling [  0.00s]
+16:05:32.741492 [debug]: Initializing schema store with entry: Frontier(CanonicalFqn { catalog: "warehouse", schema: "raw", table: "weather_daily" }) and interval: None
+16:05:32.761218 [info ]: Started building task graph
+16:05:32.769301 [info ]: Finished building task graph [  0.01s]
+16:05:32.836043 [debug]: DuckDB driver resolved: duckdb 1.5.4
+16:05:32.980326 [debug]: create_debug_span(...).entered() took 594.5µs
+16:05:32.987603 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 1.8527ms
+16:05:32.987761 [debug]: reader.schema() took 126.1µs
+16:05:32.987831 [debug]: batch-consume loop (for res in reader) took 54.9µs
+16:05:32.988032 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 7.6557ms
+16:05:32.988342 [debug]: concat_batches + normalize_result_column_names took 292.9µs
+16:05:32.988721 [debug]: record_current_span_status_from_attrs took 362.9µs
+16:05:32.988860 [debug]: Query executed on node unknown:
+/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"warehouse"'
+    
+  
+  
+16:05:32.988899 [debug]: drop(query_span_guard) (span exit/export) took 161.1µs
+16:05:32.994681 [debug]: create_debug_span(...).entered() took 21.1µs
+16:05:32.996543 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 803.4µs
+16:05:32.996575 [debug]: reader.schema() took 600ns
+16:05:32.996606 [debug]: batch-consume loop (for res in reader) took 23.1µs
+16:05:32.996633 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 1.9227ms
+16:05:32.996656 [debug]: concat_batches + normalize_result_column_names took 10.7µs
+16:05:32.996667 [debug]: record_current_span_status_from_attrs took 3.6µs
+16:05:32.996677 [debug]: Query executed on node unknown:
+/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='warehouse'
+        and type='sqlite'
+    
+  
+16:05:32.996709 [debug]: drop(query_span_guard) (span exit/export) took 35.5µs
+16:05:32.998290 [debug]: create_debug_span(...).entered() took 15.5µs
+16:05:33.001030 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 2.2443ms
+16:05:33.001058 [debug]: reader.schema() took 400ns
+16:05:33.001321 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 3.001ms
+16:05:33.001350 [debug]: concat_batches + normalize_result_column_names took 7.7µs
+16:05:33.001361 [debug]: record_current_span_status_from_attrs took 3.9µs
+16:05:33.001371 [debug]: Query executed on node unknown:
+/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    
+        create schema if not exists "warehouse"."analytics"
+    
+16:05:33.001398 [debug]: drop(query_span_guard) (span exit/export) took 30.6µs
+16:05:33.004051 [info ]: Started rendering (1 nodes)
+16:05:33.004712 [info ]: Started model analytics.day_summary
+16:05:33.004976 [debug]: Started rendering model analytics.day_summary
+16:05:33.014355 [debug]: Compiled SQL for node model.weather_dbt.day_summary at target\compiled\weather_dbt\models\day_summary.sql
+16:05:33.017461 [debug]: Finished rendering [  0.01s] model analytics.day_summary [success]
+16:05:33.017920 [info ]: Finished rendering [  0.01s] (1 nodes, 0 skipped, 0 errors)
+16:05:33.019175 [info ]: Started analyzing (1 nodes)
+16:05:33.019382 [debug]: Started analyzing model analytics.day_summary
+16:05:33.047983 [debug]: Finished analyzing [  0.03s] model analytics.day_summary [success]
+16:05:33.048452 [info ]: Finished analyzing [  0.03s] (1 nodes, 0 skipped, 0 errors)
+16:05:33.048787 [info ]: Started running (1 nodes)
+16:05:33.048929 [info ]: Started running model analytics.day_summary
+16:05:33.090477 [debug]: create_debug_span(...).entered() took 37.1µs
+16:05:33.098568 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 5.3724ms
+16:05:33.098602 [debug]: reader.schema() took 800ns
+16:05:33.098657 [debug]: batch-consume loop (for res in reader) took 47.4µs
+16:05:33.098710 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 8.1972ms
+16:05:33.098737 [debug]: concat_batches + normalize_result_column_names took 17µs
+16:05:33.098753 [debug]: record_current_span_status_from_attrs took 4.4µs
+16:05:33.098767 [debug]: Query executed on node model.weather_dbt.day_summary:
+SELECT table_catalog, table_schema, table_name, table_type FROM information_schema.tables WHERE table_schema = 'analytics' AND lower(table_catalog) = lower('warehouse')
+16:05:33.098802 [debug]: drop(query_span_guard) (span exit/export) took 40µs
+16:05:33.105298 [debug]: Writing runtime sql for node "model.weather_dbt.day_summary"
+16:05:33.107724 [debug]: create_debug_span(...).entered() took 23.4µs
+16:05:33.121177 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 10.2395ms
+16:05:33.121211 [debug]: reader.schema() took 600ns
+16:05:33.121294 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 13.5416ms
+16:05:33.121315 [debug]: concat_batches + normalize_result_column_names took 10.3µs
+16:05:33.121325 [debug]: record_current_span_status_from_attrs took 4.7µs
+16:05:33.121336 [debug]: Query executed on node model.weather_dbt.day_summary:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.weather_dbt.day_summary", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+  
+    
+    
+    create  table
+      "warehouse"."analytics"."day_summary__dbt_tmp"
+  
+    as (
+      SELECT
+    "city",
+    AVG("temperature_2m") AS "avg_temperature_2m",
+    AVG("relative_humidity_2m") AS "avg_relative_humidity_2m",
+    SUM("precipitation") AS "sum_precipitation",
+    AVG("wind_speed_10m") AS "avg_wind_speed_10m",
+FROM
+    "warehouse"."raw"."weather_daily"
+GROUP BY
+    "city"
+    );
+  
+    
+  
+16:05:33.121376 [debug]: drop(query_span_guard) (span exit/export) took 44.2µs
+16:05:33.125032 [debug]: create_debug_span(...).entered() took 16.8µs
+16:05:33.127368 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 1.6717ms
+16:05:33.127396 [debug]: reader.schema() took 500ns
+16:05:33.127420 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 2.3596ms
+16:05:33.127434 [debug]: concat_batches + normalize_result_column_names took 7.9µs
+16:05:33.127444 [debug]: record_current_span_status_from_attrs took 3.1µs
+16:05:33.127454 [debug]: Query executed on node model.weather_dbt.day_summary:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.weather_dbt.day_summary", "profile_name": "weather_dbt", "target_name": "dev"} */
+alter table "warehouse"."analytics"."day_summary__dbt_tmp" rename to "day_summary"
+16:05:33.127481 [debug]: drop(query_span_guard) (span exit/export) took 31.1µs
+16:05:33.133530 [debug]: create_debug_span(...).entered() took 23.1µs
+16:05:33.134371 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 178.3µs
+16:05:33.134400 [debug]: reader.schema() took 400ns
+16:05:33.134422 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 861.1µs
+16:05:33.134437 [debug]: concat_batches + normalize_result_column_names took 8.9µs
+16:05:33.134453 [debug]: record_current_span_status_from_attrs took 3µs
+16:05:33.134463 [debug]: Query executed on node model.weather_dbt.day_summary:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.weather_dbt.day_summary", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+      drop table if exists "warehouse"."analytics"."day_summary__dbt_backup" cascade
+    
+16:05:33.134495 [debug]: drop(query_span_guard) (span exit/export) took 34.9µs
+16:05:33.138054 [info ]: Finished running [  0.09s] model analytics.day_summary [success]
+16:05:33.138386 [info ]: Finished running [  0.09s] (1 nodes, 0 skipped, 0 errors)
+16:05:33.138831 [info ]:  Succeeded model analytics.day_summary (table) [1 of 1 in 0.13s]
+16:05:54.335533 [info ]: 
+==================== Execution Summary =====================
+Finished 'run' successfully for target 'dev' [22.4s]
+Processed: 1 model
+Summary: 1 total | 1 success
+==================== 2026-10-07T16:15:24.948531Z | 01a11725-f110-7102-acc9-f5952c4f58e4 ====================
+16:15:24.948929 [info ]: dbt 2.0.6
+16:15:24.950249 [info ]: Started loading project
+16:15:24.956960 [info ]: Loading profiles.yml
+16:15:24.968617 [debug]:    Started loading packages
+16:15:24.972214 [debug]:     Loaded [  0.00s] packages
+16:15:24.974286 [info ]: Finished loading project [  0.02s]
+16:15:24.975533 [info ]: Started parsing
+16:15:25.033566 [debug]: Finished parsing models/schema.yml [  0.00s]
+16:15:25.034124 [debug]: Finished parsing models/sources.yml [  0.00s]
+16:15:25.037762 [debug]: Finished parsing models/day_summary.sql [  0.00s]
+16:15:25.052368 [debug]: Finished parsing target\generic_tests\not_null_day_summary_avg_relative_humidity_2m.sql [  0.00s]
+16:15:25.056019 [debug]: Finished parsing target\generic_tests\not_null_day_summary_avg_temperature_2m.sql [  0.00s]
+16:15:25.058278 [debug]: Finished parsing target\generic_tests\not_null_day_summary_avg_wind_speed_10m.sql [  0.00s]
+16:15:25.062875 [debug]: Finished parsing target\generic_tests\not_null_day_summary_city.sql [  0.00s]
+16:15:25.074282 [debug]: Finished parsing target\generic_tests\unique_day_summary_city.sql [  0.01s]
+16:15:25.077484 [debug]: Finished parsing target\generic_tests\not_null_day_summary_sum_precipitation.sql [  0.00s]
+16:15:25.334924 [info ]: Finished parsing [  0.36s]
+16:15:25.348593 [info ]: Started scheduling
+16:15:25.352625 [info ]: Finished scheduling [  0.00s]
+16:15:25.360763 [debug]: Initializing schema store with entry: Frontier(CanonicalFqn { catalog: "warehouse", schema: "analytics", table: "day_summary" }) and interval: None
+16:15:25.382958 [info ]: Started building task graph
+16:15:25.387948 [info ]: Finished building task graph [  0.00s]
+16:15:25.422962 [info ]: Started rendering (6 nodes)
+16:15:25.423536 [info ]: Started test analytics_dbt_test__audit.unique_day_summary_city
+16:15:25.423764 [debug]: Started rendering test analytics_dbt_test__audit.unique_day_summary_city
+16:15:25.424071 [info ]: Started test analytics_dbt_test__audit.not_null_day_summary_sum_precipitation
+16:15:25.424078 [debug]: Started rendering test analytics_dbt_test__audit.not_null_day_summary_sum_precipitation
+16:15:25.424091 [info ]: Started test analytics_dbt_test__audit.not_null_day_summary_city
+16:15:25.424098 [debug]: Started rendering test analytics_dbt_test__audit.not_null_day_summary_city
+16:15:25.424109 [info ]: Started test analytics_dbt_test__audit.not_null_day_summary_avg_wind_speed_10m
+16:15:25.424116 [debug]: Started rendering test analytics_dbt_test__audit.not_null_day_summary_avg_wind_speed_10m
+16:15:25.424128 [info ]: Started test analytics_dbt_test__audit.not_null_day_summary_avg_temperature_2m
+16:15:25.424134 [debug]: Started rendering test analytics_dbt_test__audit.not_null_day_summary_avg_temperature_2m
+16:15:25.424153 [info ]: Started test analytics_dbt_test__audit.not_null_day_summary_avg_relative_humidity_2m
+16:15:25.424162 [debug]: Started rendering test analytics_dbt_test__audit.not_null_day_summary_avg_relative_humidity_2m
+16:15:25.467992 [debug]: Compiled SQL for node test.weather_dbt.unique_day_summary_city.1bfa6ad5ff at target\compiled\weather_dbt\target\generic_tests\unique_day_summary_city.sql
+16:15:25.468044 [debug]: Compiled SQL for node test.weather_dbt.not_null_day_summary_city.516861ee8f at target\compiled\weather_dbt\target\generic_tests\not_null_day_summary_city.sql
+16:15:25.468730 [debug]: Compiled SQL for node test.weather_dbt.not_null_day_summary_avg_wind_speed_10m.ded6b80db0 at target\compiled\weather_dbt\target\generic_tests\not_null_day_summary_avg_wind_speed_10m.sql
+16:15:25.468833 [debug]: Compiled SQL for node test.weather_dbt.not_null_day_summary_avg_temperature_2m.4ff0f13c8a at target\compiled\weather_dbt\target\generic_tests\not_null_day_summary_avg_temperature_2m.sql
+16:15:25.468952 [debug]: Compiled SQL for node test.weather_dbt.not_null_day_summary_sum_precipitation.e0d1583e32 at target\compiled\weather_dbt\target\generic_tests\not_null_day_summary_sum_precipitation.sql
+16:15:25.469339 [debug]: Compiled SQL for node test.weather_dbt.not_null_day_summary_avg_relative_humidity_2m.9dd40b7b18 at target\compiled\weather_dbt\target\generic_tests\not_null_day_summary_avg_relative_humidity_2m.sql
+16:15:25.471411 [debug]: Finished rendering [  0.05s] test analytics_dbt_test__audit.unique_day_summary_city [success]
+16:15:25.472801 [info ]: Started analyzing (6 nodes)
+16:15:25.472928 [debug]: Started analyzing test analytics_dbt_test__audit.unique_day_summary_city
+16:15:25.473160 [debug]: Finished rendering [  0.05s] test analytics_dbt_test__audit.not_null_day_summary_avg_wind_speed_10m [success]
+16:15:25.473353 [debug]: Started analyzing test analytics_dbt_test__audit.not_null_day_summary_avg_wind_speed_10m
+16:15:25.473372 [debug]: Finished rendering [  0.05s] test analytics_dbt_test__audit.not_null_day_summary_sum_precipitation [success]
+16:15:25.473584 [debug]: Started analyzing test analytics_dbt_test__audit.not_null_day_summary_sum_precipitation
+16:15:25.473646 [debug]: Finished rendering [  0.05s] test analytics_dbt_test__audit.not_null_day_summary_avg_temperature_2m [success]
+16:15:25.474427 [debug]: Started analyzing test analytics_dbt_test__audit.not_null_day_summary_avg_temperature_2m
+16:15:25.474470 [debug]: Finished rendering [  0.05s] test analytics_dbt_test__audit.not_null_day_summary_city [success]
+16:15:25.475232 [debug]: Started analyzing test analytics_dbt_test__audit.not_null_day_summary_city
+16:15:25.475272 [debug]: Finished rendering [  0.05s] test analytics_dbt_test__audit.not_null_day_summary_avg_relative_humidity_2m [success]
+16:15:25.475492 [info ]: Finished rendering [  0.05s] (6 nodes, 0 skipped, 0 errors)
+16:15:25.475954 [debug]: Started analyzing test analytics_dbt_test__audit.not_null_day_summary_avg_relative_humidity_2m
+16:15:25.500345 [debug]: Finished analyzing [  0.03s] test analytics_dbt_test__audit.not_null_day_summary_avg_wind_speed_10m [success]
+16:15:25.501119 [info ]: Started running (6 nodes)
+16:15:25.501219 [info ]: Started running test analytics_dbt_test__audit.not_null_day_summary_avg_wind_speed_10m
+16:15:25.501253 [debug]: Finished analyzing [  0.03s] test analytics_dbt_test__audit.not_null_day_summary_avg_temperature_2m [success]
+16:15:25.501409 [info ]: Started running test analytics_dbt_test__audit.not_null_day_summary_avg_temperature_2m
+16:15:25.501435 [debug]: Finished analyzing [  0.03s] test analytics_dbt_test__audit.not_null_day_summary_sum_precipitation [success]
+16:15:25.501568 [info ]: Started running test analytics_dbt_test__audit.not_null_day_summary_sum_precipitation
+16:15:25.501588 [debug]: Finished analyzing [  0.03s] test analytics_dbt_test__audit.not_null_day_summary_avg_relative_humidity_2m [success]
+16:15:25.501708 [info ]: Started running test analytics_dbt_test__audit.not_null_day_summary_avg_relative_humidity_2m
+16:15:25.501728 [debug]: Finished analyzing [  0.03s] test analytics_dbt_test__audit.not_null_day_summary_city [success]
+16:15:25.501887 [info ]: Started running test analytics_dbt_test__audit.not_null_day_summary_city
+16:15:25.501912 [debug]: Finished analyzing [  0.03s] test analytics_dbt_test__audit.unique_day_summary_city [success]
+16:15:25.502046 [info ]: Finished analyzing [  0.03s] (6 nodes, 0 skipped, 0 errors)
+16:15:25.502205 [info ]: Started running test analytics_dbt_test__audit.unique_day_summary_city
+16:15:25.509993 [debug]: Writing runtime sql for node "test.weather_dbt.unique_day_summary_city.1bfa6ad5ff"
+16:15:25.509991 [debug]: Writing runtime sql for node "test.weather_dbt.not_null_day_summary_sum_precipitation.e0d1583e32"
+16:15:25.509993 [debug]: Writing runtime sql for node "test.weather_dbt.not_null_day_summary_avg_relative_humidity_2m.9dd40b7b18"
+16:15:25.509991 [debug]: Writing runtime sql for node "test.weather_dbt.not_null_day_summary_avg_temperature_2m.4ff0f13c8a"
+16:15:25.510031 [debug]: Writing runtime sql for node "test.weather_dbt.not_null_day_summary_avg_wind_speed_10m.ded6b80db0"
+16:15:25.510030 [debug]: Writing runtime sql for node "test.weather_dbt.not_null_day_summary_city.516861ee8f"
+16:15:25.520965 [debug]: DuckDB driver resolved: duckdb 1.5.4
+16:15:25.661496 [debug]: create_debug_span(...).entered() took 458.2µs
+16:15:25.661495 [debug]: create_debug_span(...).entered() took 457.7µs
+16:15:25.661496 [debug]: create_debug_span(...).entered() took 473µs
+16:15:25.661496 [debug]: create_debug_span(...).entered() took 452.6µs
+16:15:25.661518 [debug]: create_debug_span(...).entered() took 464.6µs
+16:15:25.661525 [debug]: create_debug_span(...).entered() took 457.7µs
+16:15:25.672208 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 2.0378ms
+16:15:25.672208 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 1.991ms
+16:15:25.672228 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 2.0578ms
+16:15:25.672231 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 1.9684ms
+16:15:25.672245 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 2.0269ms
+16:15:25.672450 [debug]: reader.schema() took 214.2µs
+16:15:25.672452 [debug]: reader.schema() took 216.5µs
+16:15:25.672453 [debug]: reader.schema() took 201.4µs
+16:15:25.672455 [debug]: reader.schema() took 214.2µs
+16:15:25.672473 [debug]: reader.schema() took 234.1µs
+16:15:25.675525 [debug]: batch-consume loop (for res in reader) took 3.0441ms
+16:15:25.675815 [debug]: batch-consume loop (for res in reader) took 2.9291ms
+16:15:25.675841 [debug]: batch-consume loop (for res in reader) took 3.3763ms
+16:15:25.675845 [debug]: batch-consume loop (for res in reader) took 3.3817ms
+16:15:25.675844 [debug]: batch-consume loop (for res in reader) took 3.3787ms
+16:15:25.675977 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 14.444ms
+16:15:25.675985 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 14.4704ms
+16:15:25.676140 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 14.6235ms
+16:15:25.676147 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 14.6156ms
+16:15:25.676166 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 14.6484ms
+16:15:25.676258 [debug]: stmt.execute() (submit+wait_for_completion, returns reader) took 5.8755ms
+16:15:25.676267 [debug]: reader.schema() took 100ns
+16:15:25.676296 [debug]: batch-consume loop (for res in reader) took 26.7µs
+16:15:25.676436 [debug]: do_execute(conn) (closure: stmt.execute + schema + batch loop) took 14.9225ms
+16:15:25.677454 [debug]: concat_batches + normalize_result_column_names took 1.0089ms
+16:15:25.677454 [debug]: concat_batches + normalize_result_column_names took 1.3019ms
+16:15:25.677456 [debug]: concat_batches + normalize_result_column_names took 1.4647ms
+16:15:25.677458 [debug]: concat_batches + normalize_result_column_names took 1.2736ms
+16:15:25.677481 [debug]: concat_batches + normalize_result_column_names took 1.4866ms
+16:15:25.677482 [debug]: concat_batches + normalize_result_column_names took 1.3258ms
+16:15:25.677604 [debug]: record_current_span_status_from_attrs took 116.1µs
+16:15:25.677604 [debug]: record_current_span_status_from_attrs took 137.3µs
+16:15:25.677605 [debug]: record_current_span_status_from_attrs took 115.2µs
+16:15:25.677606 [debug]: record_current_span_status_from_attrs took 137.8µs
+16:15:25.677618 [debug]: Query executed on node test.weather_dbt.not_null_day_summary_city.516861ee8f:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "test.weather_dbt.not_null_day_summary_city.516861ee8f", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select city
+from "warehouse"."analytics"."day_summary"
+where city is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+16:15:25.677618 [debug]: Query executed on node test.weather_dbt.not_null_day_summary_sum_precipitation.e0d1583e32:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "test.weather_dbt.not_null_day_summary_sum_precipitation.e0d1583e32", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select sum_precipitation
+from "warehouse"."analytics"."day_summary"
+where sum_precipitation is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+16:15:25.677618 [debug]: Query executed on node test.weather_dbt.unique_day_summary_city.1bfa6ad5ff:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "test.weather_dbt.unique_day_summary_city.1bfa6ad5ff", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+select
+    city as unique_field,
+    count(*) as n_records
+
+from "warehouse"."analytics"."day_summary"
+where city is not null
+group by city
+having count(*) > 1
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+16:15:25.677618 [debug]: Query executed on node test.weather_dbt.not_null_day_summary_avg_relative_humidity_2m.9dd40b7b18:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "test.weather_dbt.not_null_day_summary_avg_relative_humidity_2m.9dd40b7b18", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select avg_relative_humidity_2m
+from "warehouse"."analytics"."day_summary"
+where avg_relative_humidity_2m is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+16:15:25.677636 [debug]: record_current_span_status_from_attrs took 169.5µs
+16:15:25.677641 [debug]: drop(query_span_guard) (span exit/export) took 28.3µs
+16:15:25.677641 [debug]: drop(query_span_guard) (span exit/export) took 28µs
+16:15:25.677644 [debug]: drop(query_span_guard) (span exit/export) took 31µs
+16:15:25.677644 [debug]: Query executed on node test.weather_dbt.not_null_day_summary_avg_wind_speed_10m.ded6b80db0:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "test.weather_dbt.not_null_day_summary_avg_wind_speed_10m.ded6b80db0", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select avg_wind_speed_10m
+from "warehouse"."analytics"."day_summary"
+where avg_wind_speed_10m is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+16:15:25.677646 [debug]: drop(query_span_guard) (span exit/export) took 30.1µs
+16:15:25.677654 [debug]: record_current_span_status_from_attrs took 186.5µs
+16:15:25.677657 [debug]: drop(query_span_guard) (span exit/export) took 14.9µs
+16:15:25.677659 [debug]: Query executed on node test.weather_dbt.not_null_day_summary_avg_temperature_2m.4ff0f13c8a:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "test.weather_dbt.not_null_day_summary_avg_temperature_2m.4ff0f13c8a", "profile_name": "weather_dbt", "target_name": "dev"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select avg_temperature_2m
+from "warehouse"."analytics"."day_summary"
+where avg_temperature_2m is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+16:15:25.677670 [debug]: drop(query_span_guard) (span exit/export) took 12.2µs
+16:15:25.684143 [info ]: Finished running [  0.18s] test analytics_dbt_test__audit.not_null_day_summary_city [pass]
+16:15:25.684367 [info ]:     Passed test  not_null_day_summary_city [3 of 6 in 0.26s]
+16:15:25.684935 [info ]: Finished running [  0.18s] test analytics_dbt_test__audit.not_null_day_summary_avg_wind_speed_10m [pass]
+16:15:25.685092 [info ]:     Passed test  not_null_day_summary_avg_wind_speed_10m [4 of 6 in 0.26s]
+16:15:25.685318 [info ]: Finished running [  0.18s] test analytics_dbt_test__audit.unique_day_summary_city [pass]
+16:15:25.685483 [info ]:     Passed test  unique_day_summary_city [1 of 6 in 0.26s]
+16:15:25.685686 [info ]: Finished running [  0.18s] test analytics_dbt_test__audit.not_null_day_summary_avg_relative_humidity_2m [pass]
+16:15:25.685835 [info ]:     Passed test  not_null_day_summary_avg_relative_humidity_2m [6 of 6 in 0.26s]
+16:15:25.686049 [info ]: Finished running [  0.18s] test analytics_dbt_test__audit.not_null_day_summary_sum_precipitation [pass]
+16:15:25.686192 [info ]:     Passed test  not_null_day_summary_sum_precipitation [2 of 6 in 0.26s]
+16:15:25.686396 [info ]: Finished running [  0.18s] test analytics_dbt_test__audit.not_null_day_summary_avg_temperature_2m [pass]
+16:15:25.686537 [info ]: Finished running [  0.19s] (6 nodes, 0 skipped, 0 errors)
+16:15:25.686706 [info ]:     Passed test  not_null_day_summary_avg_temperature_2m [5 of 6 in 0.26s]
+16:15:51.135625 [info ]: 
+==================== Execution Summary =====================
+Finished 'test' successfully for target 'dev' [26.2s]
+Processed: 6 tests
+Summary: 6 total | 6 success
