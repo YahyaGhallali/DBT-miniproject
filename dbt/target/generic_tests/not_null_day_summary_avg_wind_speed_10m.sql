@@ -1,0 +1,1 @@
+{{ test_not_null(column_name="avg_wind_speed_10m", model=get_where_subquery(ref('day_summary'))) }}

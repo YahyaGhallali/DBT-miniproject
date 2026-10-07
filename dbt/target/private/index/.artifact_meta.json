@@ -1,0 +1,20 @@
+{
+  "target_dir": "C:\\Users\\yahya\\Desktop\\DE\\dbt\\target",
+  "fingerprints": {
+    "semantic_manifest.json": {
+      "size": 234,
+      "modified_secs": 1791381368
+    },
+    "manifest.json": {
+      "size": 515498,
+      "modified_secs": 1791381369
+    },
+    "run_results.json": {
+      "size": 1309,
+      "modified_secs": 1791381369
+    }
+  },
+  "write_source": "DirectWrite",
+  "context_dir": null,
+  "context_fingerprints": {}
+}

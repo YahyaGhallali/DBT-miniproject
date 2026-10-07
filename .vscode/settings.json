@@ -1,0 +1,11 @@
+{
+    "duckdb.databases": [
+        {
+            "alias": "warehouse",
+            "type": "file",
+            "path": "c:\\Users\\yahya\\Desktop\\DE\\warehouse.duckdb",
+            "attached": false
+        }
+    ],
+    "duckdb.defaultDatabase": "warehouse"
+}

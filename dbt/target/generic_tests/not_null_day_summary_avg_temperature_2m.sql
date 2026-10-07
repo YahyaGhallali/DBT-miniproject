@@ -1,0 +1,1 @@
+{{ test_not_null(column_name="avg_temperature_2m", model=get_where_subquery(ref('day_summary'))) }}

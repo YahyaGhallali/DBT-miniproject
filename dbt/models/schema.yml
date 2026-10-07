@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: day_summary
+    description: "Daily weather summary aggregated by city"
+    columns:
+      - name: city
+        description: "City name"
+        tests:
+          - not_null
+          - unique
+
+      - name: avg_temperature_2m
+        description: "Average temperature per city"
+        tests:
+          - not_null
+
+      - name: avg_relative_humidity_2m
+        description: "Average relative humidity per city"
+        tests:
+          - not_null
+
+      - name: sum_precipitation
+        description: "Total precipitation per city"
+        tests:
+          - not_null
+
+      - name: avg_wind_speed_10m
+        description: "Average wind speed per city"
+        tests:
+          - not_null

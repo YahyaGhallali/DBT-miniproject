@@ -1,0 +1,1 @@
+{{ test_not_null(column_name="sum_precipitation", model=get_where_subquery(ref('day_summary'))) }}
