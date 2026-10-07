@@ -1,5 +1,7 @@
 """Fetch selected weather features for multiple cities from Open-Meteo."""
 
+import os
+
 import pandas as pd
 import duckdb
 import openmeteo_requests
@@ -65,7 +67,8 @@ weather_df = weather_df[["city", "date", *FEATURES]]
 print(weather_df)
 print(f"\nTotal rows: {len(weather_df)}")
 
-con = duckdb.connect(r"C:\Users\yahya\Desktop\DE\dbt\warehouse.duckdb")
+database_path = os.getenv("DUCKDB_PATH", "dbt/warehouse.duckdb")
+con = duckdb.connect(database_path)
 con.execute("CREATE SCHEMA IF NOT EXISTS raw")
 con.execute("CREATE OR REPLACE TABLE raw.weather_daily AS SELECT * FROM weather_df")
 print(con.execute("SELECT count(*) FROM raw.weather_daily").fetchone())

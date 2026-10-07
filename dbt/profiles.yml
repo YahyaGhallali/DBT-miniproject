@@ -3,5 +3,5 @@ weather_dbt:
   outputs:
     dev:
       type: duckdb
-      path: ../warehouse.duckdb
+      path: "{{ env_var('DUCKDB_PATH', '../warehouse.duckdb') }}"
       schema: analytics

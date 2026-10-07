@@ -1,0 +1,10 @@
+.git
+.cache
+.venv
+__pycache__
+*.pyc
+airflow/logs
+dbt/target
+dbt/logs
+warehouse.duckdb
+dbt/warehouse.duckdb
